@@ -3,12 +3,12 @@
 # @baseUrl = https://translate-deepl-api.onrender.com
 
 ### /translate - POST simple text
-### Description: Translate a single string. Adjust JSON fields to match your API (text/source_lang/target_lang).
+### Description: Translate a single string. Adjust JSON fields to match your API (texts/source_lang/target_lang).
 POST {{baseUrl}}/translate
 Content-Type: application/json
 
 {
-	"text": "Hello, world!",
+	"texts": ["Hello, world!", "How are you?"],
 	"source_lang": "EN",
 	"target_lang": "DE"
 }
@@ -27,17 +27,13 @@ Content-Type: application/json
 	"target_lang": "FR"
 }
 
-### /translate - GET with query params (if your API supports GET)
-### Example: /translate?text=Hello&target=es
-GET {{baseUrl}}/translate?text=Hello%20from%20VSCode&target=es
-
 ### /translate - POST with options
 ### Description: Example including optional settings (formality, preserve_formatting). Adapt keys to your implementation.
 POST {{baseUrl}}/translate
 Content-Type: application/json
 
 {
-	"text": "Please translate this into Japanese, keeping polite form.",
+	"texts": ["Please translate this into Japanese, keeping polite form."],
 	"source_lang": "EN",
 	"target_lang": "JA",
 	"options": {
@@ -51,7 +47,7 @@ POST {{baseUrl}}/translate
 Content-Type: application/json
 
 {
-	"text": "エビデンスは以下のリンクに追加しました。\n今回コードにMRがたくさんあるため、どのMRにエビデンスを格納するかわからないのです。\nそのため、チケットを作成して格納しました。\nご確認お願いします。\nよろしくお願いします。",
+	"texts": ["エビデンスは以下のリンクに追加しました。\n今回コードにMRがたくさんあるため、どのMRにエビデンスを格納するかわからないのです。\nそのため、チケットを作成して格納しました。\nご確認お願いします。\nよろしくお願いします。"],
 	"source_lang": "JA",
 	"target_lang": "VI"
 }
@@ -61,7 +57,7 @@ POST {{baseUrl}}/translate
 Content-Type: application/json
 
 {
-	"text": "エビデンスは以下のリンクに追加しました。\n今回コードにMRがたくさんあるため、どのMRにエビデンスを格納するかわからないのです。\nそのため、チケットを作成して格納しました。\nご確認お願いします。\nよろしくお願いします。",
+	"texts": ["エビデンスは以下のリンクに追加しました。\n今回コードにMRがたくさんあるため、どのMRにエビデンスを格納するかわからないのです。\nそのため、チケットを作成して格納しました。\nご確認お願いします。\nよろしくお願いします。"],
 	"source_lang": "JA",
 	"target_lang": "en-US"
 }

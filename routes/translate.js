@@ -3,14 +3,14 @@
 /**
  * Translate route
  * POST /translate
- * Body: { text: string | string[], target_lang: string, source_lang?: string, options?: object }
+ * Body: { texts: string[], target_lang: string, source_lang?: string, options?: object }
  * 
  * Requires the DeepL plugin to be registered (provides fastify.deepl decorator)
  */
 module.exports = async function (fastify, opts) {
   fastify.post('/translate', async (request, reply) => {
     const {
-      text,
+      texts,
       target_lang: targetLang,
       source_lang: sourceLang,
       options
@@ -24,21 +24,21 @@ module.exports = async function (fastify, opts) {
     }
 
     // Validate required fields
-    if (!text || !targetLang) {
+    if (!texts || !Array.isArray(texts) || texts.length === 0 || !targetLang) {
       return reply.status(400).send({
-        error: 'Missing required fields: text, target_lang'
+        error: 'Missing required fields: texts (must be non-empty array), target_lang'
       })
     }
 
     try {
-      // translateText accepts string or array of strings as first param
+      // translateText accepts array of strings as first param
       const result = await fastify.deepl.translateText(
-        text,
+        texts,
         sourceLang || null,
         targetLang,
         options || {}
       )
-      // Return the raw DeepL result (could be object or array)
+      // Return the raw DeepL result (array of translation objects)
       return { result }
     } catch (err) {
       request.log.error(err)

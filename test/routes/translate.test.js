@@ -11,17 +11,17 @@ test('translate route validates required fields', async (t) => {
     method: 'POST',
     url: '/translate',
     payload: {
-      text: 'Hello'
+      texts: ['Hello']
       // Missing target_lang
     }
   })
 
   assert.strictEqual(res.statusCode, 400)
   const payload = JSON.parse(res.payload)
-  assert.strictEqual(payload.error, 'Missing required fields: text, target_lang')
+  assert.strictEqual(payload.error, 'Missing required fields: texts (must be non-empty array), target_lang')
 })
 
-test('translate route requires text field', async (t) => {
+test('translate route requires texts field', async (t) => {
   const app = await build(t)
 
   const res = await app.inject({
@@ -29,11 +29,45 @@ test('translate route requires text field', async (t) => {
     url: '/translate',
     payload: {
       target_lang: 'ES'
-      // Missing text
+      // Missing texts
     }
   })
 
   assert.strictEqual(res.statusCode, 400)
   const payload = JSON.parse(res.payload)
-  assert.strictEqual(payload.error, 'Missing required fields: text, target_lang')
+  assert.strictEqual(payload.error, 'Missing required fields: texts (must be non-empty array), target_lang')
+})
+
+test('translate route requires texts to be a non-empty array', async (t) => {
+  const app = await build(t)
+
+  const res = await app.inject({
+    method: 'POST',
+    url: '/translate',
+    payload: {
+      texts: [],
+      target_lang: 'ES'
+    }
+  })
+
+  assert.strictEqual(res.statusCode, 400)
+  const payload = JSON.parse(res.payload)
+  assert.strictEqual(payload.error, 'Missing required fields: texts (must be non-empty array), target_lang')
+})
+
+test('translate route requires texts to be an array', async (t) => {
+  const app = await build(t)
+
+  const res = await app.inject({
+    method: 'POST',
+    url: '/translate',
+    payload: {
+      texts: 'Hello',
+      target_lang: 'ES'
+    }
+  })
+
+  assert.strictEqual(res.statusCode, 400)
+  const payload = JSON.parse(res.payload)
+  assert.strictEqual(payload.error, 'Missing required fields: texts (must be non-empty array), target_lang')
 })
