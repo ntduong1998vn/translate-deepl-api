@@ -45,22 +45,7 @@ Content-Type: application/json
 	}
 }
 
-### Curl examples (copy-paste into a terminal)
-# Single text
-###
-# curl -X POST {{baseUrl}}/translate -H "Content-Type: application/json" -d '{"text":"Hello","source_lang":"EN","target_lang":"IT"}'
-
-# Batch
-###
-# curl -X POST {{baseUrl}}/translate -H "Content-Type: application/json" -d '{"texts":["One","Two"],"target_lang":"PT"}'
-
 ### /translate - POST translate this Japanese paragraph to Vietnamese
-### Original Japanese:
-### エビデンスは以下のリンクに追加しました。
-### 今回コードにMRがたくさんあるため、どのMRにエビデンスを格納するかわからないのです。
-### そのため、チケットを作成して格納しました。
-### ご確認お願いします。
-### よろしくお願いします。
 POST {{baseUrl}}/translate
 Content-Type: application/json
 
