@@ -1,0 +1,41 @@
+# Test the translate endpoint
+# Make sure you have DEEPL_AUTH_KEY set in .env
+
+### Health check
+GET http://localhost:3000/
+
+### Translate text to Spanish
+POST http://localhost:3000/translate
+Content-Type: application/json
+
+{
+  "text": "Hello, world!",
+  "target_lang": "ES"
+}
+
+### Translate with source language specified
+POST http://localhost:3000/translate
+Content-Type: application/json
+
+{
+  "text": "Hello, world!",
+  "source_lang": "EN",
+  "target_lang": "FR"
+}
+
+### Translate multiple texts
+POST http://localhost:3000/translate
+Content-Type: application/json
+
+{
+  "text": ["Hello", "Goodbye", "Thank you"],
+  "target_lang": "DE"
+}
+
+### Missing required field (should return 400)
+POST http://localhost:3000/translate
+Content-Type: application/json
+
+{
+  "text": "Hello"
+}
