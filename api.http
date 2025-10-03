@@ -1,5 +1,6 @@
 ### VSCode REST Client environment variable
 @baseUrl = http://localhost:3000
+# @baseUrl = https://translate-deepl-api.onrender.com
 
 ### /translate - POST simple text
 ### Description: Translate a single string. Adjust JSON fields to match your API (text/source_lang/target_lang).
@@ -64,3 +65,13 @@ Content-Type: application/json
 	"source_lang": "JA",
 	"target_lang": "en-US"
 }
+
+### Test the new language endpoints
+
+# Get source languages
+GET http://localhost:3000/source-languages
+
+###
+
+# Get target languages  
+GET http://localhost:3000/target-languages
